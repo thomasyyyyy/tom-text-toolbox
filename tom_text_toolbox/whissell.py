@@ -1,6 +1,7 @@
 import pandas as pd
 from tokenizer import process_caption
 from tqdm import tqdm
+import os
 
 def whissell_score(caption: str | list[str], dictionary: pd.DataFrame):
     ### Function to score words in a caption
@@ -37,5 +38,23 @@ def whissell_scores(captions: list | pd.Series, dictionary: pd.DataFrame):
         mean_image_scores.append(mean_image)
     
     return mean_pleasant_scores, mean_active_scores, mean_image_scores
+
+if __name__ == "__main__":
+    captions = ["This is a test.", "Another sentence!", "Third one."]
+    basepath = os.path.dirname(os.path.realpath(__file__))
+
+    # Path to a sample image for debugging   
+    data_folder = basepath + "/dictionaries/"
     
+    # Path to a sample image
+    dictionary_file = data_folder + "whissell_dict.csv"
+
+    # Assigning Dictionary
+    dictionary = pd.read_csv(dictionary_file)
+
+    results = whissell_scores(captions, dictionary = dictionary)
+
+    # Convert to DataFrame for funsies
+    df = pd.DataFrame(results)
+    print(df.head())
 
