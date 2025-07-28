@@ -1,21 +1,45 @@
-apology_terms = [
+{
+"academic_terms": [
+    "academic", "academy", "art", "astronomy", "biological", "board", "campus",
+    "chemistry", "classic", "classroom", "clinical", "coach", "college", "counselor",
+    "course", "credit", "dean", "degree", "discourse", "dr", "economics", "educate*",
+    "educated", "education", "educational", "electronics", "english", "essay", "exam",
+    "examination", "examine*", "examiner", "experiment", "experimental", "faculty",
+    "form", "freshman", "freshmen", "geometry", "grade", "graduate", "graduation",
+    "grammar", "grind", "head", "high", "historian", "historic", "historical", "history",
+    "institute", "instruct*", "instruction", "instructor", "intellect", "intellectual",
+    "intelligence", "junior", "knowledge", "lab", "laboratory", "learn*", "learner",
+    "lecture", "lesson", "letter", "liberal", "library", "linguist", "literalness",
+    "literary", "literature", "major", "math", "mathematical", "mathematics",
+    "matriculate", "museum", "nutrition", "philosopher", "philosophic", "philosophical",
+    "physician", "physicist", "physics", "platonism", "proctor", "professor",
+    "psychiatrist", "psychological", "psychologist", "pta", "pupil", "questionnaire",
+    "rational", "read*", "research*", "researcher", "scholar*", "scholarship",
+    "scholastic", "school*", "schoolroom", "science", "scientific", "scientist",
+    "semantic", "semester", "seminary", "senior", "sociological", "sociology",
+    "statistical", "statistics", "student", "study", "taught", "teach*", "teacher",
+    "test", "text", "theoretical", "theory", "thinker", "typography", "undergraduate",
+    "university", "wisdom", "wise", "word"
+],
+
+"apology_terms": [
     "accept*", "accident*", "acknowledg*", "admit*", "agree*",
     "apolog*", "approv*", "assert*", "conced*", "confess*",
     "excus*", "forgiv*", "guilt*", "pardon*", "recogni*",
     "sorry", "guilty"
-]
+],
 
-chanelchange_terms = [
+"channel_change_terms": [
     "call", "chat*", "contact", "correspondence", "e-mail", "e-message",
     "letter", "mail", "offline", "phone", "ring", "visit", "voic*"
-]
+],
 
-compensation_terms = [
+"compensation_terms": [
     "compensat*", "offer*", "recover*", "refund*", "reimburs*",
     "repay*", "restor*", "return"
-]
+],
 
-consensus_terms = [
+"consensus_terms": [
     "join the crowd", "prevailing", "the in thing", "widespread", "highly-rated",
     "it's all over the place", "widely approved", "fitting in", "see it everywhere",
     "good brand", "recent hits", "top rated", "in demand", "following the crowd",
@@ -29,9 +53,9 @@ consensus_terms = [
     "proven", "viral", "stylish", "the masses", "well known", "mainstream", "fad",
     "everybody", "a favorite", "a hit", "successful", "must have", "majority",
     "famous", "trend", "popular", "norm", "cool", "hip", "rad", "everyone", "people"
-]
+],
 
-economic_terms = [
+"economic_terms" : [
     "account*", "accrue*", "affluence", "affluent", "afford*", "afloat", "agency",
     "agricultural", "agriculture", "allowance", "aluminum", "anti-trust", "aristocracy",
     "aristocrat", "aristocratic", "associate*", "auction", "auditor", "baby", "backer",
@@ -52,9 +76,9 @@ economic_terms = [
     "rent*", "revenue", "rich*", "salary*", "sale*", "save*", "sell*", "shop*", "spend*",
     "stock*", "supply*", "tax*", "trade*", "value*", "wage*", "wealth*", "worker*", "worth*",
     "yield*"
-]
+],
 
-disgust_terms = [
+"disgust_terms" : [
     "aberration", "abhor*", "abject", "abnormal", "abominat*", "appall*", "averse",
     "bloated", "constipat*", "contaminate", "contaminated", "crap", "cringeworthy",
     "decay*", "degrad*", "deteriorated", "detestation", "dirt", "dirty", "disgust*",
@@ -70,34 +94,34 @@ disgust_terms = [
     "slimy", "slop", "sloth", "sludge", "spew", "spit", "squirm", "stain", "sticky",
     "stink", "stinking", "swig", "tasteless", "toad", "trash", "trashy", "ugly",
     "unclean", "untidy", "unwashed", "vomit", "vulgar", "wart", "weird", "withered"
-]
+],
 
-gratitude_terms = [
+"gratitude_terms" : [
     "acknowledg*", "appreciat*", "awesome", "glad", "grateful", "gratitude",
     "happy", "helpful", "kind", "like", "sincerely", "super", "thank*", "thanx",
     "you are awesome", "you made my day", "means a lot to me",
-    "\U0001F60A",  # 😊
-    "\U0001F609",  # 😉
-    "\u2764\uFE0F",  # ❤️
-    "\U0001F9E1",    # 🧡
-    "\U0001F49B",    # 💛
-    "\U0001F49A",    # 💚
-    "\U0001F499",    # 💙
-    "\U0001F49C",    # 💜
-    "\U0001F5A4",    # 🖤
-    "\U0001F90D",    # 🤍
-    "\U0001F90E",    # 🤎
-    "\U0001F496",    # 💖
-    "\U0001F497",    # 💗
-    "\U0001F493",    # 💓
-    "\U0001F49E",    # 💞
-    "\U0001F495",    # 💕
-    "\U0001F498",    # 💘
-    "\U0001F49D",    # 💝
-    "\U0001F49F"     # 💟
-]
+    "\U0001F60A", 
+    "\U0001F609",  
+    "\u2764\uFE0F",  
+    "\U0001F9E1",    
+    "\U0001F49B",    
+    "\U0001F49A",   
+    "\U0001F499",    
+    "\U0001F49C",   
+    "\U0001F5A4",    
+    "\U0001F90D",    
+    "\U0001F90E",    
+    "\U0001F496",   
+    "\U0001F497",    
+    "\U0001F493",    
+    "\U0001F49E",   
+    "\U0001F495",    
+    "\U0001F498",   
+    "\U0001F49D",    
+    "\U0001F49F"     
+],
 
-empathy_terms = [
+"empathy_terms" : [
     "admir*", "affection*", "appreciat*", "assur*", "better", "care", "careful*", "caring",
     "challenging", "comfort*", "commitment*", "confiden*", "considerate", "contact*",
     "contented*", "courag*", "determin*", "devot*", "difficult", "discourag*", "divin*",
@@ -114,18 +138,18 @@ empathy_terms = [
     "make it better", "makes me really sad", "makes me sad", "my mistake",
     "our mistake", "tell me", "you are right", "you are totally right",
     "you're right", "your position"
-]
+],
 
-explain_terms = ["because", "explain", "why", "fact", "the reason"]
+"explain_terms" : ["because", "explain", "why", "fact", "the reason"],
 
-intensity_terms = [
+"intensity_terms" : [
     "Best of all", "Favorite", "Like extremely", "Like intensely", "Excellent",
     "Wonderful", "strongly like", "Like very much", "Mighty fine", "Especially good",
     "Despise", "Dislike extremely", "loath", "dislike intensely", "Terrible",
     "Very bad", "Dislike very much", "strongly dislike", "Highly unfavorable", "bad"
-]
+],
 
-legal_terms = [
+"legal_terms" : [
     "accuse*", "acquit*", "acquittal", "advocate*", "agent", "allegation*", "amendment", "amnesty",
     "antitrust", "appeal*", "apply*", "arrest*", "attorney*", "auditor*", "authoritative", "authority*",
     "authorize*", "autonomous", "ax", "bar", "blameless", "blue", "break*", "broke", "capital", "case",
@@ -147,14 +171,14 @@ legal_terms = [
     "stipulation*", "stole", "stolen", "suit*", "summon*", "supreme*", "suspect*", "sworn", "testament",
     "testify*", "testimony*", "theft", "thief", "title*", "treatise", "trial*", "truant", "try*", "unjust",
     "unlawful", "upheld", "uphold*", "verdict*", "violation*", "warrant*", "will*", "witness*"
-]
+],
 
-money_terms = [
+"money_terms" : [
     "affordable", "budget", "cheap", "cheapest", "cost*", "dollars", "inexpensive",
     "price*", "priced", "less", "low", "lowest", "over", "under"
-]
+],
 
-morality_terms = [
+"morality_terms" : [
     "accuse", "act", "adhere", "adherence", "admirable", "appall*", "awe", "believe",
     "believer", "betray*", "better", "bible", "biblical", "bishop", "blame", "bless",
     "board", "bound", "brave", "bravery", "breach", "break", "broke", "cathedral",
@@ -189,14 +213,14 @@ morality_terms = [
     "trust", "truthful", "unfair", "ungrateful", "unjust", "unjustified", "untrustworthy", "vice",
     "vindicate", "vindication", "violate", "violation", "virtue", "virtuous", "wicked", "worship",
     "worthiness", "worthy", "wrong"
-]
+],
 
-male_pronouns = {"he", "him", "his", "himself"}
-female_pronouns = {"she", "her", "hers", "herself"}
+"male_pronouns" : ["he", "him", "his", "himself"],
+"female_pronouns" : ["she", "her", "hers", "herself"],
 
-purpose_words = ["for", "my", "help", "that", "use", "make", "feel", "put", "with"]
+"purpose_words" : ["for", "my", "help", "that", "use", "make", "feel", "put", "with"],
 
-respect_terms = [
+"respect_terms" : [
     "abuse*", "acknowledgment", "admiral", "admiration*", "admire*", "admission*", "admit*",
     "age", "air", "almighty", "ancestor", "anxious", "apologize*", "apology", "applause",
     "appreciate*", "appreciation", "appropriate", "approval*", "approve*", "ashamed",
@@ -225,12 +249,12 @@ respect_terms = [
     "staunch", "stigma*", "sublime", "swear*", "temerity", "term", "throne", "tolerance*",
     "tradition*", "tribute", "trustworthy", "unfortunate", "unreliable", "unworthy", "valor",
     "vengeance", "vow*", "vulgar", "way", "white", "worth*"
-]
+],
 
-bigness_terms = ["Big", "Great", "Large", "Vast*"]
-smallness_terms = ["Small", "Little", "Petit*", "Tiny"]
+"bigness_terms" : ["Big", "Great", "Large", "Vast*"],
+"smallness_terms" : ["Small", "Little", "Petit*", "Tiny"],
 
-speculation_terms = [
+"speculation_terms" : [
     "suggest", "believe", "appear", "indicate", "assume", "seem", "consider", "doubt",
     "estimate", "expect", "feel", "guess", "imagine", "speculate", "suppose", "think",
     "understand", "imply", "presume", "suspect", "postulate", "reckon", "infer", "hope",
@@ -243,3 +267,4 @@ speculation_terms = [
     "shall", "should", "can", "could", "would", "ought", "usually", "approximately",
     "generally", "frequently", "normally"
 ]
+}

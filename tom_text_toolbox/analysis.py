@@ -1,18 +1,18 @@
 import pandas as pd
 import nltk
 from nltk.tokenize import word_tokenize
+import subprocess
 
 # Import analysis libraries
-from tokenizer import tokenize_caption
-from whissell import whissell_scores
-from syntatic_complexity import readability_scores
-from mind_miner import mind_miner
-
-
-from passive_voice import passive_scores
-
-
-
+from tokenizer import tokenize_caption # Function to tokenize captions
+from whissell import whissell_scores # Function to calculate Whissell scores
+from syntatic_complexity import readability_scores # Function to calculate readability scores
+from mind_miner import mind_miner # Function to analyze mind miner scores
+from passive_voice import passive_scores # Function to analyze passive voice
+from dictionaries import TermCounter # Import TermCounter for term counting
+from familiarity import familiarity_scores
+from mistakes import count_spelling_mistakes # Function to count spelling mistakes
+from liwc import liwc_analysis # Function to run LIWC analysis
 
 ### Read in the target file
 
@@ -35,7 +35,7 @@ def process_captions(df: pd.DataFrame, column: str):
 
 ### Main function to run the analysis
 
-def main(file: str, column: str = "caption", method:str = "complete"):
+def main(file: str, column: str = "caption", method:str = "complete", liwc:bool = False):
 
     # Read the input file
     df = read_file(file)
@@ -65,12 +65,14 @@ def main(file: str, column: str = "caption", method:str = "complete"):
         # Passive Voice Requires a DataFrame, so is included at the end
         df = passive_scores(df)
 
+        df.to_csv("processed_captions.csv", index=False)
+
         return df
-    elif method == "summary":
-        # Summary Analysis Here
-        print("Running summary analysis...")
-        # Add your summary analysis logic here
-        # For now, just return the processed DataFrame
+    
+    if liwc:
+        # Run LIWC analysis if requested
+        file = "processed_captions.csv" if method == "complete" else file
+        liwc_analysis(file, column, dependent = True, merge_back= True, concise = True)
         return df
 
 if __name__ == "__main__":
