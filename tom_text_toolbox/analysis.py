@@ -1,18 +1,17 @@
 import pandas as pd
-import nltk
+import logging
 from nltk.tokenize import word_tokenize
-import subprocess
 
-# Import analysis libraries
-from tokenizer import tokenize_caption # Function to tokenize captions
-from whissell import whissell_scores # Function to calculate Whissell scores
-from syntatic_complexity import readability_scores # Function to calculate readability scores
-from mind_miner import mind_miner # Function to analyze mind miner scores
-from passive_voice import passive_scores # Function to analyze passive voice
-from dictionaries import TermCounter # Import TermCounter for term counting
-from familiarity import familiarity_scores
-from mistakes import count_spelling_mistakes # Function to count spelling mistakes
-from liwc import liwc_analysis # Function to run LIWC analysis
+from scripts.abstract_concrete_score import classify_abstract_concrete # Abstract/Concrete Scores
+from scripts.familiarity_score import classify_familiarity # Familiarity Scores
+from scripts.mind_miner_score import classify_mind_miner # Mind Miner Scores
+from scripts.mistakes_score import count_spelling_mistakes # Spelling Mistake Counts
+from scripts.passive_voice_score import count_passive # Passive Voice Count
+
+from scripts.dictionary_scores import TermCounter # All custom dictionary scores (including Harvard, excluding nrc)
+from scripts.spacy_measure_scores import SpacyAnalyzer # Spacy-Based Scores
+from scripts.nrc_scores import classify_nrc_dict # Score Joy and Anger
+from scripts.whissell import classify_whissell_scores
 
 ### Read in the target file
 
@@ -30,12 +29,19 @@ def read_file(file: str):
 ### Process the Captions
 def process_captions(df: pd.DataFrame, column: str):
     df[column] = df[column].fillna("")
-    df["token_captions"] = df[column].apply(tokenize_caption)
+    df["token_captions"] = df[column].apply(word_tokenize)
     return df
 
 ### Main function to run the analysis
 
-def main(file: str, column: str = "caption", method:str = "complete", liwc:bool = False):
+# Configure logging once at the top
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+def main(file: str, column: str = "caption", method: str = "complete", liwc: bool = False):
+    logging.info("Running main function")
 
     # Read the input file
     df = read_file(file)
@@ -43,49 +49,43 @@ def main(file: str, column: str = "caption", method:str = "complete", liwc:bool 
     # Process the DataFrame if it's valid
     if df is not None and column in df.columns:
         df = process_captions(df, column)
-        return df
     else:
-        print(f"Column '{column}' not found in the DataFrame.")
+        logging.error(f"Column '{column}' not found in the DataFrame.")
         return None
-    
-    results = {}
     
     # "Complete" analysis method
     if method == "complete":
-        # All Analysis Here
-        print("Running complete analysis...")
+        logging.info("Running complete analysis...")
 
-        results["whissell"] = whissell_scores(df["token_captions"])
-        results["readability"] = readability_scores(df["token_captions"])
-        results["mind_miner"] = mind_miner(df["token_captions"])
+        tc = TermCounter.from_json("tom_text_toolbox/dictionaries/term_dict.json")
+        term_counts_df = tc.count_all(df["caption"])
+        df = pd.concat([df, term_counts_df], axis=1)
 
-        print("Skipping sentistrength... See Documentation for details.")
-        print("Skipping hedonometer... See Documentation for details.")
+        sc = SpacyAnalyzer()
+        sc_df = sc.score_spacy_measures(df["caption"])
+        df = pd.concat([df, sc_df], axis = 1)
 
-        # Passive Voice Requires a DataFrame, so is included at the end
-        df = passive_scores(df)
+        nrc_scores_df = classify_nrc_dict(df["caption"])
+        df = pd.concat([df, nrc_scores_df], axis=1)
 
-        df.to_csv("processed_captions.csv", index=False)
+        df["abstract_concrete_score"] = classify_abstract_concrete(df["token_captions"])
+        df["familiarity_score"] = classify_familiarity(df["token_captions"])
+        df["mistakes_count"] = count_spelling_mistakes(df["caption"])
+        df["passive_count"] = count_passive(df)
+        df[["whissell_pleasant", "whissell_active", "whissell_image"]] = classify_whissell_scores(df["token_captions"])
 
+        # Save with the new column(s)
+        #df.to_csv("processed_captions.csv", index=False)
+
+        logging.info("Complete analysis done")
+
+        logging.info("Main function done running")
         return df
-    
-    if liwc:
-        # Run LIWC analysis if requested
-        file = "processed_captions.csv" if method == "complete" else file
-        liwc_analysis(file, column, dependent = True, merge_back= True, concise = True)
-        return df
+
 
 if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Process and analyze captions from a file.")
-    parser.add_argument("file", type=str, help="Path to the input file (CSV or Excel).")
-    parser.add_argument("column", type=str, help="Column name containing captions.")
-    parser.add_argument("--method", type=str, default="complete", choices=["complete", "summary"], help="Analysis method to use.")
-
-    args = parser.parse_args()
-    
-    result_df = main(args.file, args.column, args.method)
+    file = "tom_text_toolbox/text_data_TEST.csv"
+    result_df = main(file)
     
     if result_df is not None:
         print(result_df.head())  # Display the first few rows of the processed DataFrame

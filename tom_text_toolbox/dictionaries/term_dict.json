@@ -39,22 +39,6 @@
     "repay*", "restor*", "return"
 ],
 
-"consensus_terms": [
-    "join the crowd", "prevailing", "the in thing", "widespread", "highly-rated",
-    "it's all over the place", "widely approved", "fitting in", "see it everywhere",
-    "good brand", "recent hits", "top rated", "in demand", "following the crowd",
-    "the thing to do", "the up and coming", "bees knees", "they say it's good",
-    "in high demand", "seen everywhere", "influential", "lemmings", "top of the line",
-    "overused", "groupthink", "the big thing", "loved by all", "unwritten rule",
-    "favored", "embraced", "crowd favorite", "who wouldn't like this?", "cookie cutter",
-    "conventional", "conform", "follower", "customary", "in", "valued", "caught on",
-    "the rage", "global", "collective", "run of the mill", "consensus", "universal",
-    "well-known", "fashionable", "in style", "highly recommended", "prevalent",
-    "proven", "viral", "stylish", "the masses", "well known", "mainstream", "fad",
-    "everybody", "a favorite", "a hit", "successful", "must have", "majority",
-    "famous", "trend", "popular", "norm", "cool", "hip", "rad", "everyone", "people"
-],
-
 "economic_terms" : [
     "account*", "accrue*", "affluence", "affluent", "afford*", "afloat", "agency",
     "agricultural", "agriculture", "allowance", "aluminum", "anti-trust", "aristocracy",
@@ -96,29 +80,29 @@
     "unclean", "untidy", "unwashed", "vomit", "vulgar", "wart", "weird", "withered"
 ],
 
-"gratitude_terms" : [
+"gratitude_terms": [
     "acknowledg*", "appreciat*", "awesome", "glad", "grateful", "gratitude",
     "happy", "helpful", "kind", "like", "sincerely", "super", "thank*", "thanx",
     "you are awesome", "you made my day", "means a lot to me",
-    "\U0001F60A", 
-    "\U0001F609",  
-    "\u2764\uFE0F",  
-    "\U0001F9E1",    
-    "\U0001F49B",    
-    "\U0001F49A",   
-    "\U0001F499",    
-    "\U0001F49C",   
-    "\U0001F5A4",    
-    "\U0001F90D",    
-    "\U0001F90E",    
-    "\U0001F496",   
-    "\U0001F497",    
-    "\U0001F493",    
-    "\U0001F49E",   
-    "\U0001F495",    
-    "\U0001F498",   
-    "\U0001F49D",    
-    "\U0001F49F"     
+    "😊", 
+    "😉",  
+    "❤️",  
+    "🧡",    
+    "💛",    
+    "💚",   
+    "💙",    
+    "💜",   
+    "🖤",    
+    "🤍",    
+    "🤎",    
+    "💖",   
+    "💗",    
+    "💓",    
+    "💞",   
+    "💕",    
+    "💘",   
+    "💝",    
+    "💟"     
 ],
 
 "empathy_terms" : [

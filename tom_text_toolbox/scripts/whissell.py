@@ -1,8 +1,7 @@
 import pandas as pd
 from tqdm import tqdm
-from tokenizer import tokenize_caption
 
-def whissell_scores(captions: pd.Series, dictionary: str|pd.DataFrame = "../dictionaries/whissell_dict.csv") -> dict[str, pd.Series]:
+def classify_whissell_scores(captions: pd.Series, dictionary: str|pd.DataFrame = "tom_text_toolbox/dictionaries/whissell_dict.csv") -> dict[str, pd.Series]:
     """
     Calculate Whissell scores for a series of captions and return as a dictionary of Series.
 
@@ -41,9 +40,9 @@ def whissell_scores(captions: pd.Series, dictionary: str|pd.DataFrame = "../dict
             image.append(0.0)
 
     return {
-        "mean_pleasant": pd.Series(pleasant, index=captions.index),
-        "mean_active": pd.Series(active, index=captions.index),
-        "mean_image": pd.Series(image, index=captions.index),
+        "whissell_pleasant": pd.Series(pleasant, index=captions.index),
+        "whissell_active": pd.Series(active, index=captions.index),
+        "whissell_image": pd.Series(image, index=captions.index),
     }
 
 if __name__ == "__main__":
@@ -51,17 +50,12 @@ if __name__ == "__main__":
         "caption": ["This is a test.", "Another sentence!", "Third one."]
     })
 
-    # Load Whissell dictionary
-    dictionary = pd.read_csv("dictionaries/whissell_dict.csv")
-    if "word" in dictionary.columns:
-        dictionary.set_index("word", inplace=True)
-
     results = {
         "caption": df["caption"]
     }
 
     # Add Whissell scores
-    results.update(whissell_scores(df["caption"], dictionary))
+    results.update(classify_whissell_scores(df["caption"]))
 
     # Create final DataFrame
     final_df = pd.DataFrame(results)

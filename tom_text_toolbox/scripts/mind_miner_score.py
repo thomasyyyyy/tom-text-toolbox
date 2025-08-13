@@ -1,10 +1,10 @@
 #Import libraries
 import pandas as pd
-from transformers import pipeline
+from transformers.pipelines import pipeline
 import torch
 
 #Convert the tokenised column to a list
-def mind_miner(captions: pd.Series | list):
+def classify_mind_miner(captions: pd.Series | list):
     """Analyze captions using MindMiner.
     Parameters:
         captions (pd.Series | list): Series or list of caption strings.
@@ -25,7 +25,7 @@ def mind_miner(captions: pd.Series | list):
     p: list = [mindminer(caption) for caption in captions]
     scores = [entry[0]['score'] for entry in p]
 
-    return scores
+    return pd.Series(scores)
 
 if __name__ == "__main__":
     # Example input DataFrame
@@ -35,13 +35,10 @@ if __name__ == "__main__":
             "I'm not sure how I feel about this.",
             "Worst experience ever."
         ]
-    })
-
-    # Tokenised column — assume preprocessed captions if needed
-    tokenised = df["caption"]  
+    }) 
 
     # Run MindMiner
-    results = mind_miner(tokenised)
+    results = classify_mind_miner(df["caption"])
 
     # Print results
     print(results)

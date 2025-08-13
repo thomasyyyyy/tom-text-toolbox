@@ -1,0 +1,42 @@
+{
+    "brand": [
+        "@3", "@airbnb", "@ally", "@amfam", "@att", "@autonation", "@bookingcom", "@brighthousefinancial", "@intuit",
+        "@caesarspalace", "@cummins", "@disneyplus", "abbvie", "adi", "agent", "agco", "aia", "aig", "airline", "alaska", "albertsons",
+        "allstate", "alcoa", "amazon", "amex", "amgen", "apache", "app", "arconic", "associate", "assurant",
+        "bd", "beacon", "bio", "borgwarner", "branch", "business", "career", "casey", "caterpillar", "ceo",
+        "center", "chairman", "cintas", "citizens", "cliffs", "colleague", "colgate", "constellation", "company", "crew", "dealer",
+        "dana", "dennison", "department", "exelon", "devon", "dicks.com", "driver", "dover", "employee", "edison", "equitable",
+        "engineer", "expedia", "fts", "fluor", "expert", "eversource", "facility", "hughes", "i", "industry", "intern", "job", "kiewit", "leader", 
+        "manager", "me", "mellon", "mission", "office", "organization", "our","palmolive", "partner", "partnership",
+        "pg&e", "president", "professional", "team", "teammate", "us", "volunteer", "vp", "we", "work",
+        "workplace", "mcmoran", "molybdenum", "gallagher", "mills", "carvana", "goodyear", "graybar", "depot", "huntsman", "iff", "insight", "jacobs", "hunt", 
+        "deere", "morgan", "heinz", "kraft", "kroger", "lear", "leidos", "liberty", "lowe", "lpl", "lumen", "mandt", "manpowergroup", "manpower.com", "mpc", "@bing", "@microsoft",
+        "moderna", "coors", "brewer", "molson", "@morgan", "analyst", "mosaic", "motorola", "murphy", "mutual", "ns", "brand", "nrg", "nucor", "stonex", "csx", "oneok", 
+        "@oracle","oshkosh", "otis", "owens", "parker", "pfizer", "pnc", "polaris", "ppg", "p&g", "flo", "quanta", "james", "region", 
+        "regions", "ross", "sw", "sonic", "sonoco", "attendant", "sp", "swift", "sysco", "hartford", "maxx", "travelcenters", "tyson", "uhs", "@us_food", 
+        "operator", "bank", "valero", "vertex", "wabtec", "micron", "hii", "oxy", "oxychem", "westrock", "williams", "xpo", "director"
+    ],
+    "user": [
+        "cardholder", "client", "customer", "fan", "he", "member", "members", "patient", "she", "they",
+        "winner", "you", "your", "yours", "yourself", "driver", "parent" 
+    ],
+    "product": [
+        "aircraft", "app", "art", "benefit", "blog", "booth", "card", "car", "collection", "color",
+        "commitment", "deal", "design", "details", "door", "doughnut", "drink", "efforts", "episode",
+        "event", "eye", "flight", "flavor", "foundation", "game", "getaway", "gift", "good", "harvest", "healthcare",
+        "hotel", "house", "impact", "information", "initiative", "ingredient", "insight", "innovation",
+        "insurance", "introduction", "ira", "it", "idea", "launch", "laptop", "light", "link", "meal",
+        "network", "option", "phone", "plan", "pizza", "podcast", "portfolio", "post", "product",
+        "program", "project", "property", "purchase", "recipe", "refill", "release", "restaurant", 
+        "sale", "sandwich", "service", "shop", "show", "slice", "solution", "soup", "store", "supply",
+        "technology", "thing", "ticket", "tool", "tour", "tractor", "tree", "trip", "video", "what", 
+        "engine", "glove", "fence", "refinery", "tech", "screen", "monitor", "computer", "xps", "device", "gear", 
+        "film", "movie", "premiere", "season", "craft", "décor", "bedroom", "infrastructure", "equipment", "power",
+        "fragrance", "makeup", "scent", "serum", "sweater", "tire", "truck", "music", "network", "residence", "ev", "stay", "everything", 
+        "paper", "fare", "camera", "hospital", "application", "denim", "dress", "style", "ketchup", "sauce", "guitar", "performance", 
+        "phone", "song", "stage", "concert", "tour", "shoe", "dress", "bag", "refinery", "beer", "drink", "collection", 
+        "cleaner", "part", "collection", "essential", "outfit", "f-22", "paint", "stain", "look", "coffee", "brew", "drink", "cup", 
+        "architecture", "garden", "ride", "delivery", "plane", "flight", "menu", "treat", "bread", "magazine", "book", "look", 
+        "gas", "cake", "vehicle", "item", "services"
+    ]
+}

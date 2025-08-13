@@ -22,7 +22,7 @@ def start_liwc_license_server():
     except Exception as e:
         print(f"Failed to launch license server: {e}. Double-check the path.")
 
-def liwc_analysis(file: str, column: str, dependent: bool = False, merge_back: bool = False, concise: bool = False):
+def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: bool = False, concise: bool = False):
     """ Run LIWC analysis on the specified file and column.
     Args:
         file (str): Path to the input file.
@@ -49,7 +49,11 @@ def liwc_analysis(file: str, column: str, dependent: bool = False, merge_back: b
         # Convert column name to index (1-based for LIWC)
         df = pd.read_csv(input_path)
         if column in df.columns:
-            column = str((df.columns.get_loc(column)) + 1)
+            col_index = df.columns.get_loc(column)
+            if isinstance(col_index, int):
+                column = str(col_index + 1)
+            else:
+                raise ValueError(f"Column '{column}' is not unique or cannot be resolved to a single index.")
 
     try:
         cmd_to_execute = [
@@ -91,4 +95,4 @@ if __name__ == "__main__":
     # Example usage
     file = "text_data_TEST.csv"
     column = "caption"
-    liwc_analysis(file, column, dependent=True, merge_back=True, concise = True)
+    classify_liwc(file, column, dependent=True, merge_back=True, concise = True)
