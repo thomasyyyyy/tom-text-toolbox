@@ -70,8 +70,9 @@ class SpacyAnalyzer:
 
             # ---- Consumer/Brand ratio ----
             subjects = [t for t in doc if t.dep_ in ("nsubj", "nsubjpass")]
-            c_count = sum(1 for tok in subjects if tok.lemma_.lower() in self.term_dict["consumer"] or tok.text.lower() in self.term_dict["consumer"])
-            b_count = sum(1 for tok in subjects if tok.lemma_.lower() in self.term_dict["brand"] or tok.text.lower() in self.term_dict["brand"])
+            c_count = sum(1 for tok in subjects if tok.lemma_.lower() in self.term_dict["user"] or tok.text.lower() in self.term_dict["user"])
+            b_count = sum(1 for tok in subjects if tok.lemma_.lower() in self.term_dict["brand"] or tok.text.lower() in self.term_dict["brand"] 
+                          or tok.lemma_.lower() in self.term_dict["product"] or tok.text.lower() in self.term_dict["product"])
             consumer_counts.append(c_count)
             brand_counts.append(b_count)
 

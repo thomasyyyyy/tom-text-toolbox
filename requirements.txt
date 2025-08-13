@@ -1,5 +1,12 @@
-numpy
-pandas
+numpy==1.24.2
+pandas==2.0.3
+readability==0.3.2
+nltk==3.8.1
+tqdm==4.66.1
+emosent-py==0.1.7
+transformers==4.34.0
+huggingface-hub==0.18.1
+torch==2.1.0
+spacy
 readability
-nltk
-tqdm
+
