@@ -25,6 +25,7 @@ class SpacyAnalyzer:
         # Containers
         informativeness = []
         narrativity = []
+        boastful = []
         syntax_complexity = []
         tense_data = []
 
@@ -75,6 +76,10 @@ class SpacyAnalyzer:
                           or tok.lemma_.lower() in self.term_dict["product"] or tok.text.lower() in self.term_dict["product"])
             consumer_counts.append(c_count)
             brand_counts.append(b_count)
+
+            # ---- Boastful Language ----
+            boast_count = sum(1 for token in doc if token.tag_ in ["JJS", "RBS"])
+            boastful.append(boast_count)
 
         # Build final DataFrame
         df = pd.DataFrame({

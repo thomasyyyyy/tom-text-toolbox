@@ -1,7 +1,7 @@
 import pandas as pd
 from tqdm import tqdm
 
-def classify_whissell_scores(captions: pd.Series, dictionary: str|pd.DataFrame = "tom_text_toolbox/dictionaries/whissell_dict.csv") -> dict[str, pd.Series]:
+def classify_whissell_scores(captions: pd.Series, dictionary: str|pd.DataFrame = "tom_text_toolbox/dictionaries/whissell_dict.csv") -> pd.DataFrame:
     """
     Calculate Whissell scores for a series of captions and return as a dictionary of Series.
 
@@ -39,11 +39,11 @@ def classify_whissell_scores(captions: pd.Series, dictionary: str|pd.DataFrame =
             active.append(0.0)
             image.append(0.0)
 
-    return {
+    return pd.DataFrame({
         "whissell_pleasant": pd.Series(pleasant, index=captions.index),
         "whissell_active": pd.Series(active, index=captions.index),
         "whissell_image": pd.Series(image, index=captions.index),
-    }
+    })
 
 if __name__ == "__main__":
     df = pd.DataFrame({

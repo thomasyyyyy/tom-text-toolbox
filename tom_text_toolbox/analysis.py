@@ -2,16 +2,21 @@ import pandas as pd
 import logging
 from nltk.tokenize import word_tokenize
 
-from scripts.abstract_concrete_score import classify_abstract_concrete # Abstract/Concrete Scores
-from scripts.familiarity_score import classify_familiarity # Familiarity Scores
-from scripts.mind_miner_score import classify_mind_miner # Mind Miner Scores
-from scripts.mistakes_score import count_spelling_mistakes # Spelling Mistake Counts
-from scripts.passive_voice_score import count_passive # Passive Voice Count
+### Single Score Features (returns a Series)
+from features.abstract_concrete_score import classify_abstract_concrete # Abstract/Concrete Scores
+from features.familiarity_score import classify_familiarity # Familiarity Score
+from features.mind_miner_score import classify_mind_miner # Mind Miner Score
+from features.mistakes_score import count_spelling_mistakes # Spelling Mistake Count
+from features.passive_voice_score import count_passive # Passive Voice Count
+from features.message_balance_score import classify_message_balance
 
-from scripts.dictionary_scores import TermCounter # All custom dictionary scores (including Harvard, excluding nrc)
-from scripts.spacy_measure_scores import SpacyAnalyzer # Spacy-Based Scores
-from scripts.nrc_scores import classify_nrc_dict # Score Joy and Anger
-from scripts.whissell import classify_whissell_scores
+### Multiple Score Features (returns a DataFrame)
+from features.dictionary_scores import TermCounter # All custom dictionary scores (including Harvard, excluding nrc)
+from features.spacy_measure_scores import SpacyAnalyzer # Spacy-Based Scores
+from features.nrc_scores import classify_nrc_dict # Score Joy and Anger
+from features.whissell_scores import classify_whissell_scores # Score Whissel Dictionary Scores
+from features.figurative_speech_scores import classify_figures_of_speech # Score Figure of Speech
+from features.liwc_scores import classify_liwc # Classify all liwc scores
 
 ### Read in the target file
 
@@ -40,7 +45,7 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-def main(file: str, column: str = "caption", method: str = "complete", liwc: bool = False):
+def analyse_features(file: str, column: str = "caption", method: str = "complete", liwc: bool = False):
     logging.info("Running main function")
 
     # Read the input file
@@ -68,24 +73,34 @@ def main(file: str, column: str = "caption", method: str = "complete", liwc: boo
         nrc_scores_df = classify_nrc_dict(df["caption"])
         df = pd.concat([df, nrc_scores_df], axis=1)
 
+        figurative_scores_df = classify_figures_of_speech(df["cpation"])
+        df = pd.concat([df, figurative_scores_df], axis = 1)
+
+        df["passive_count"] = count_passive(df)
+
         df["abstract_concrete_score"] = classify_abstract_concrete(df["token_captions"])
         df["familiarity_score"] = classify_familiarity(df["token_captions"])
         df["mistakes_count"] = count_spelling_mistakes(df["caption"])
-        df["passive_count"] = count_passive(df)
+        df["message_balance_score"] = classify_message_balance(df["captions"])
         df[["whissell_pleasant", "whissell_active", "whissell_image"]] = classify_whissell_scores(df["token_captions"])
 
         # Save with the new column(s)
-        #df.to_csv("processed_captions.csv", index=False)
+        df.to_csv("processed_captions.csv", index=False)
 
         logging.info("Complete analysis done")
 
         logging.info("Main function done running")
+
+        if liwc:
+            logging.info("Starting to analyse liwc features...")
+            classify_liwc(file = "processed_captions.csv", column = "caption", dependent = True, merge_back= True, concise = True)
+
         return df
 
 
 if __name__ == "__main__":
     file = "tom_text_toolbox/text_data_TEST.csv"
-    result_df = main(file)
+    result_df = analyse_features(file)
     
     if result_df is not None:
         print(result_df.head())  # Display the first few rows of the processed DataFrame

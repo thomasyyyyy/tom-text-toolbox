@@ -29,6 +29,11 @@
     "sorry", "guilty"
 ],
 
+"awe_terms": [
+    "power*", "lov*", "great", "interest*", "christ*",
+    "grand*", "relig*", "wonder*", "remark*", "god*"
+],
+
 "channel_change_terms": [
     "call", "chat*", "contact", "correspondence", "e-mail", "e-message",
     "letter", "mail", "offline", "phone", "ring", "visit", "voic*"
@@ -37,6 +42,40 @@
 "compensation_terms": [
     "compensat*", "offer*", "recover*", "refund*", "reimburs*",
     "repay*", "restor*", "return"
+],
+
+"consensus_terms": [
+    "join the crowd", "prevailing", "the in thing", "widespread", "highly-rated",
+    "it's all over the place", "widely approved", "fitting in", "see it everywhere",
+    "good brand", "recent hits", "top rated", "in demand", "following the crowd",
+    "the thing to do", "the up and coming", "bees knees", "they say it's good",
+    "in high demand", "seen everywhere", "influential", "lemmings", "top of the line",
+    "overused", "groupthink", "the big thing", "loved by all", "unwritten rule",
+    "favored", "embraced", "crowd favorite", "who wouldn't like this?", "cookie cutter",
+    "conventional", "conform", "follower", "customary", "in", "valued", "caught on",
+    "the rage", "global", "collective", "run of the mill", "consensus", "universal",
+    "well-known", "fashionable", "in style", "highly recommended", "prevalent",
+    "proven", "viral", "stylish", "the masses", "well known", "mainstream", "fad",
+    "everybody", "a favorite", "a hit", "successful", "must have", "majority",
+    "famous", "trend", "popular", "norm", "cool", "hip", "rad", "everyone", "people"
+],
+
+"disgust_terms" : [
+    "aberration", "abhor*", "abject", "abnormal", "abominat*", "appall*", "averse",
+    "bloated", "constipat*", "contaminate", "contaminated", "crap", "cringeworthy",
+    "decay*", "degrad*", "deteriorated", "detestation", "dirt", "dirty", "disgust*",
+    "distast*", "distorted", "dung", "entrails", "excrement", "execration", "feces",
+    "filth", "filthy", "flabby", "flatulence", "gaby", "gag", "garbage", "grime",
+    "grimy", "gross", "grotesque", "gruesome", "gutter", "heretic", "herpes*",
+    "hideous", "incest*", "infestation", "latrines", "lewd", "loathing", "loo",
+    "maggot", "mess", "messy", "mildew", "mire", "muck", "muddy", "musty",
+    "mutilated", "nause*", "nauseous", "obscene", "ooze", "perver*", "pig*", "pollut*",
+    "puk*", "pungen*", "purgator*", "rags", "rancid", "regurgitation", "repel*",
+    "repelling", "repugnan*", "repuls*", "revuls*", "rot", "rotting", "rubbish",
+    "scum", "sewage", "sewer", "sewerage", "shabby", "sicken*", "sickness", "slime",
+    "slimy", "slop", "sloth", "sludge", "spew", "spit", "squirm", "stain", "sticky",
+    "stink", "stinking", "swig", "tasteless", "toad", "trash", "trashy", "ugly",
+    "unclean", "untidy", "unwashed", "vomit", "vulgar", "wart", "weird", "withered"
 ],
 
 "economic_terms" : [
@@ -60,24 +99,6 @@
     "rent*", "revenue", "rich*", "salary*", "sale*", "save*", "sell*", "shop*", "spend*",
     "stock*", "supply*", "tax*", "trade*", "value*", "wage*", "wealth*", "worker*", "worth*",
     "yield*"
-],
-
-"disgust_terms" : [
-    "aberration", "abhor*", "abject", "abnormal", "abominat*", "appall*", "averse",
-    "bloated", "constipat*", "contaminate", "contaminated", "crap", "cringeworthy",
-    "decay*", "degrad*", "deteriorated", "detestation", "dirt", "dirty", "disgust*",
-    "distast*", "distorted", "dung", "entrails", "excrement", "execration", "feces",
-    "filth", "filthy", "flabby", "flatulence", "gaby", "gag", "garbage", "grime",
-    "grimy", "gross", "grotesque", "gruesome", "gutter", "heretic", "herpes*",
-    "hideous", "incest*", "infestation", "latrines", "lewd", "loathing", "loo",
-    "maggot", "mess", "messy", "mildew", "mire", "muck", "muddy", "musty",
-    "mutilated", "nause*", "nauseous", "obscene", "ooze", "perver*", "pig*", "pollut*",
-    "puk*", "pungen*", "purgator*", "rags", "rancid", "regurgitation", "repel*",
-    "repelling", "repugnan*", "repuls*", "revuls*", "rot", "rotting", "rubbish",
-    "scum", "sewage", "sewer", "sewerage", "shabby", "sicken*", "sickness", "slime",
-    "slimy", "slop", "sloth", "sludge", "spew", "spit", "squirm", "stain", "sticky",
-    "stink", "stinking", "swig", "tasteless", "toad", "trash", "trashy", "ugly",
-    "unclean", "untidy", "unwashed", "vomit", "vulgar", "wart", "weird", "withered"
 ],
 
 "gratitude_terms": [

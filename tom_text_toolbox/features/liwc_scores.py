@@ -27,7 +27,7 @@ def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: b
     Args:
         file (str): Path to the input file.
         column (str): Column name to analyze.
-        dependent (bool): If True, output will be in a specific format.
+        dependent (bool): If True, output will be named "Total Lingusitic Analysis". If False, it will be named "liwc_captions.csv"
         merge_back (bool): If True, merge LIWC output back into original DataFrame.
         concise (bool): If True, only keep a subset of LIWC columns.
     Returns:

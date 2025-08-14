@@ -24,10 +24,10 @@ def count_passive(df: pd.DataFrame, captions: str = "caption", n_process: int = 
         df, captions, n_process, batch_size, add_other_columns=True
     )
 
-    return df1
+    return df1['passive_count']
 
 if __name__ == "__main__":
     df = pd.read_csv("tom_text_toolbox/text_data_TEST.csv")
 
     df = count_passive(df)
-    print(df)
+    print(df['passive_count'])
