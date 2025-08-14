@@ -11,26 +11,17 @@ class SpacyAnalyzer:
         cb_path = "tom_text_toolbox/dictionaries/cb_ratio.json"
         with open(cb_path, "r", encoding="utf-8") as f:
             self.term_dict = json.load(f)
-
-        # Convert lists to sets for fast lookup
         self.term_dict = {k: set(v) for k, v in self.term_dict.items()}
 
     def score_spacy_measures(self, captions: pd.Series) -> pd.DataFrame:
         docs = list(self.nlp.pipe(captions.astype(str), batch_size=2000, n_process=4))
 
-        # Predefine sets
         state_verbs = {"feel", "become", "change", "transform", "realize", "understand", "decide"}
         event_verbs = {"happen", "occur", "cause", "trigger", "lead", "result", "start", "end"}
 
-        # Containers
-        informativeness = []
-        narrativity = []
-        boastful = []
-        syntax_complexity = []
-        tense_data = []
-
-        consumer_counts = []
-        brand_counts = []
+        informativeness, narrativity, boastful, syntax_complexity, tense_data = [], [], [], [], []
+        consumer_counts, brand_counts = [], []
+        gi_counts = []
 
         for doc in docs:
             alpha_tokens = [t for t in doc if t.is_alpha]

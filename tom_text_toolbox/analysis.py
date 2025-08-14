@@ -8,7 +8,7 @@ from features.familiarity_score import classify_familiarity # Familiarity Score
 from features.mind_miner_score import classify_mind_miner # Mind Miner Score
 from features.mistakes_score import count_spelling_mistakes # Spelling Mistake Count
 from features.passive_voice_score import count_passive # Passive Voice Count
-from features.message_balance_score import classify_message_balance
+from tom_text_toolbox.features.levdist_scores import classify_levdist
 
 ### Multiple Score Features (returns a DataFrame)
 from features.dictionary_scores import TermCounter # All custom dictionary scores (including Harvard, excluding nrc)
@@ -81,7 +81,7 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
         df["abstract_concrete_score"] = classify_abstract_concrete(df["token_captions"])
         df["familiarity_score"] = classify_familiarity(df["token_captions"])
         df["mistakes_count"] = count_spelling_mistakes(df["caption"])
-        df["message_balance_score"] = classify_message_balance(df["captions"])
+        df["percept_dist"] = classify_levdist(df["caption"])
         df[["whissell_pleasant", "whissell_active", "whissell_image"]] = classify_whissell_scores(df["token_captions"])
 
         # Save with the new column(s)
