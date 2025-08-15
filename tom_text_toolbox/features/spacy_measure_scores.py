@@ -21,7 +21,6 @@ class SpacyAnalyzer:
 
         informativeness, narrativity, boastful, syntax_complexity, tense_data = [], [], [], [], []
         consumer_counts, brand_counts = [], []
-        gi_counts = []
 
         for doc in docs:
             alpha_tokens = [t for t in doc if t.is_alpha]

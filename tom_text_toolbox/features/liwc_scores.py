@@ -20,32 +20,36 @@ def start_liwc_license_server():
     except Exception as e:
         print(f"Failed to launch license server: {e}. Double-check the path.")
 
-def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: bool = False, concise: bool = False, custom_dictionary: str = None):
-    """Run LIWC twice — default + optional custom dictionary — and merge both results into the original DataFrame."""
+def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: bool = False,
+                  concise: bool = False, custom_dictionary: str = None):
+    """
+    Run LIWC twice — default + optional custom dictionary — and merge results into the original DataFrame.
+    Outputs are created next to the input file unless a custom path is provided.
+    """
     print("Running LIWC analysis...")
     start_liwc_license_server()
 
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    input_path = os.path.join(base_dir, file)
-
+    # Keep file path as given, compute input directory
+    input_path = file
+    input_dir = os.path.dirname(input_path) or "."
+    
     # Output file names
     output_file_default = "liwc_captions.csv" if dependent else "total_linguistic_analysis.csv"
-    output_path_default = os.path.join(base_dir, output_file_default)
-
     output_file_custom = "liwc_captions_custom.csv" if dependent else "total_linguistic_analysis_custom.csv"
-    output_path_custom = os.path.join(base_dir, output_file_custom)
+    merged_output_file = "liwc_combined.csv"
+
+    output_path_default = os.path.join(input_dir, output_file_default)
+    output_path_custom = os.path.join(input_dir, output_file_custom)
+    merged_output_path = os.path.join(input_dir, merged_output_file)
 
     # Convert column name to index (1-based for LIWC CLI)
-    if column and isinstance(column, str):
-        df = pd.read_csv(input_path)
-        if column in df.columns:
-            col_index = df.columns.get_loc(column)
-            column = str(int(col_index) + 1)
-        else:
-            raise ValueError(f"Column '{column}' not found in file.")
+    df = pd.read_csv(input_path)
+    if column not in df.columns:
+        raise ValueError(f"Column '{column}' not found in file.")
+    col_index = df.columns.get_loc(column)
+    column_index = str(col_index + 1)
 
-    # Load original data once for merging later
-    original_df = pd.read_csv(input_path)
+    original_df = df.copy()
 
     # --- First Run: Default Dictionary ---
     try:
@@ -53,11 +57,11 @@ def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: b
             "LIWC-22-cli.exe",
             "--mode", "wc",
             "--input", input_path,
-            "--column-indices", column,
+            "--column-indices", column_index,
             "--output", output_path_default
         ]
         print("\nRunning LIWC with default dictionary...")
-        subprocess.run(cmd_default, check=True)
+        subprocess.run(cmd_default, check=True, cwd=input_dir)
         print("Default LIWC analysis completed successfully.")
 
         liwc_df_default = pd.read_csv(output_path_default)
@@ -77,25 +81,23 @@ def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: b
     # --- Second Run: Custom Dictionary ---
     liwc_df_custom = None
     if custom_dictionary:
-        try:
-            if not os.path.exists(custom_dictionary):
-                raise FileNotFoundError(f"Custom dictionary file not found: {custom_dictionary}")
+        if not os.path.exists(custom_dictionary):
+            raise FileNotFoundError(f"Custom dictionary file not found: {custom_dictionary}")
 
+        try:
             cmd_custom = [
                 "LIWC-22-cli.exe",
                 "--mode", "wc",
                 "--input", input_path,
-                "--column-indices", column,
+                "--column-indices", column_index,
                 "--dictionary", custom_dictionary,
                 "--output", output_path_custom
             ]
             print("\nRunning LIWC with custom dictionary...")
-            subprocess.run(cmd_custom, check=True)
+            subprocess.run(cmd_custom, check=True, cwd=input_dir)
             print("Custom LIWC analysis completed successfully.")
 
             liwc_df_custom = pd.read_csv(output_path_custom)
-
-            # Rename columns from custom run to avoid collisions
             liwc_df_custom = liwc_df_custom.add_suffix("_custom")
 
         except subprocess.CalledProcessError as e:
@@ -106,17 +108,18 @@ def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: b
         print("\nMerging LIWC outputs back into original file...")
         merged_df = pd.concat([original_df.reset_index(drop=True),
                                liwc_df_default.reset_index(drop=True)], axis=1)
-
         if liwc_df_custom is not None:
             merged_df = pd.concat([merged_df.reset_index(drop=True),
                                    liwc_df_custom.reset_index(drop=True)], axis=1)
 
-        merged_output_path = os.path.join(base_dir, "liwc_combined.csv")
         merged_df.to_csv(merged_output_path, index=False)
         print(f"Combined LIWC output written to: {merged_output_path}")
 
+        print(list(merged_df.columns))
+
+# Example usage
 if __name__ == "__main__":
-    file = "text_data_TEST.csv"
+    file = "text_data_TEST.csv"  # relative path or full path
     column = "caption"
     custom_dict_path = r"tom_text_toolbox\dictionaries\regulatory-mode-dictionary.dicx"
     classify_liwc(file, column, dependent=True, merge_back=True, concise=True, custom_dictionary=custom_dict_path)

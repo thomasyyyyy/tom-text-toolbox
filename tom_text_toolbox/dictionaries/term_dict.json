@@ -272,7 +272,7 @@
     "shall", "should", "can", "could", "would", "ought", "usually", "approximately",
     "generally", "frequently", "normally"
 ],
-"overstated": [
+"overstated_terms": [
     "abominable",
     "absolute",
     "absolute",
@@ -970,7 +970,7 @@
     "whole",
     "yet"
   ],
-  "understated": [
+  "understated_terms": [
     "about",
     "accident",
     "accidental",
@@ -1292,7 +1292,7 @@
     "usual",
     "way"
   ],
-  "power": [
+  "power_terms": [
     "abolish",
     "accomplish",
     "accomplishment",
@@ -1984,7 +1984,7 @@
     "win",
     "word"
   ],
-  "wellbeing": [
+  "wellbeing_terms": [
     "adjust",
     "adult",
     "afraid",
