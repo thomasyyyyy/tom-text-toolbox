@@ -106,7 +106,7 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
         if liwc:
             logging.info("Starting to analyse liwc features...")
             classify_liwc(file = "processed_captions.csv", column = "caption", dependent = True, merge_back= True, concise = True,
-                          custom_dictionary= None)
+                          custom_dictionary= custom_dictionary)
             logging.info("All Done!")
 
         return df
