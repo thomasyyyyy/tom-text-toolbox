@@ -1,6 +1,6 @@
 """Main module."""
 
-from analysis import analyse_features
+from tom_text_toolbox.main import analyse_features
 
 file = "Input file name here"
 
