@@ -3,7 +3,6 @@ pandas
 readability
 nltk
 tqdm
-json
 collections
 typing
 concurrent.futures
