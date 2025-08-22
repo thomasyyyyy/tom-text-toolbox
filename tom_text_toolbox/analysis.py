@@ -3,20 +3,20 @@ import logging
 from nltk.tokenize import word_tokenize
 
 ### Single Score Features (returns a Series)
-from features.abstract_concrete_score import classify_abstract_concrete # Abstract/Concrete Scores
-from features.familiarity_score import classify_familiarity # Familiarity Score
-from features.mind_miner_score import classify_mind_miner # Mind Miner Score
-from features.mistakes_score import count_spelling_mistakes # Spelling Mistake Count
-from features.passive_voice_score import count_passive # Passive Voice Count
-from features.levdist_scores import classify_levdist
+from linguistic_features.abstract_concrete_score import classify_abstract_concrete # Abstract/Concrete Scores
+from linguistic_features.familiarity_score import classify_familiarity # Familiarity Score
+from linguistic_features.mind_miner_score import classify_mind_miner # Mind Miner Score
+from linguistic_features.mistakes_score import count_spelling_mistakes # Spelling Mistake Count
+from linguistic_features.passive_voice_score import count_passive # Passive Voice Count
+from linguistic_features.levdist_scores import classify_levdist
 
 ### Multiple Score Features (returns a DataFrame)
-from features.dictionary_scores import TermCounter # All custom dictionary scores (including Harvard, excluding nrc)
-from features.spacy_measure_scores import SpacyAnalyzer # Spacy-Based Scores
-from features.nrc_scores import classify_nrc_dict # Score Joy and Anger
-from features.whissell_scores import classify_whissell_scores # Score Whissel Dictionary Scores
-from features.figurative_speech_scores import classify_figures_of_speech # Score Figure of Speech
-from features.liwc_scores import classify_liwc # Classify all liwc scores
+from linguistic_features.dictionary_scores import TermCounter # All custom dictionary scores (including Harvard, excluding nrc)
+from linguistic_features.spacy_measure_scores import SpacyAnalyzer # Spacy-Based Scores
+from linguistic_features.nrc_scores import classify_nrc_dict # Score Joy and Anger
+from linguistic_features.whissell_scores import classify_whissell_scores # Score Whissel Dictionary Scores
+from linguistic_features.figurative_speech_scores import classify_figures_of_speech # Score Figure of Speech
+from linguistic_features.liwc_scores import classify_liwc # Classify all liwc scores
 
 ### Read in the target file
 
@@ -89,6 +89,8 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
         df["familiarity_score"] = classify_familiarity(df["token_captions"])
         logging.info("Scoring Mistakes...")
         df["mistakes_count"] = count_spelling_mistakes(df["caption"])
+        logging.info("Scoring Mind Miner...")
+        df["mind_miner_score"] = classify_mind_miner(df["caption"])
         logging.info("Scoring Perceptual Distance...")
         df["percept_dist"] = classify_levdist(df["caption"])
         logging.info("Scoring Whissell...")
