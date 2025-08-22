@@ -9,16 +9,39 @@ def is_license_server_running(process_name="LIWC-22-license-server.exe"):
             return True
     return False
 
+import subprocess
+import platform
+import os
+
 def start_liwc_license_server():
-    license_server_path = r"C:\Program Files\LIWC-22\LIWC-22-license-server\LIWC-22-license-server.exe"
+    """
+    Launches the LIWC license server on Windows or macOS.
+    """
+    
+    system = platform.system()
+    
+    if system == "Windows":
+        license_server_path = r"C:\Program Files\LIWC-22\LIWC-22-license-server\LIWC-22-license-server.exe"
+    elif system == "Darwin":  # macOS
+        # Adjust path depending on where LIWC is installed on Mac
+        license_server_path = "/Applications/LIWC-22-license-server/LIWC-22-license-server.app/Contents/MacOS/LIWC-22-license-server"
+    else:
+        print(f"Unsupported operating system: {system}")
+        return
+
     if is_license_server_running():
         print("LIWC license server is already running.")
         return
+
+    if not os.path.exists(license_server_path):
+        print(f"License server not found at {license_server_path}. Double-check the installation path.")
+        return
+
     try:
-        subprocess.Popen(license_server_path, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        subprocess.Popen([license_server_path], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print("LIWC license server launched successfully.")
     except Exception as e:
-        print(f"Failed to launch license server: {e}. Double-check the path.")
+        print(f"Failed to launch license server: {e}")
 
 def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: bool = False,
                   concise: bool = False, custom_dictionary: str = None):
