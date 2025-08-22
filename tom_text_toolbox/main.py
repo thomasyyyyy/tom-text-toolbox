@@ -45,7 +45,7 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-def analyse_features(file: str, column: str = "caption", method: str = "complete", liwc: bool = False, 
+def analyse_features(file: str, column: str = "caption", method: str = "complete", liwc: bool = False,
                      custom_dictionary: str = None):
     logging.info("Running Main Function")
 

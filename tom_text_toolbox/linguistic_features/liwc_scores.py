@@ -2,28 +2,36 @@ import pandas as pd
 import subprocess
 import os
 import psutil
+import platform
 
-def is_license_server_running(process_name="LIWC-22-license-server.exe"):
+def is_license_server_running():
+    """
+    Checks if LIWC license server is running, cross-platform.
+    """
+    system = platform.system()
+    
+    if system == "Windows":
+        process_name = "LIWC-22-license-server.exe"
+    elif system == "Darwin":  # macOS
+        process_name = "LIWC-22-license-server"  # the macOS binary name
+    else:
+        raise RuntimeError(f"Unsupported OS: {system}")
+
     for proc in psutil.process_iter(attrs=['pid', 'name']):
         if proc.info['name'] == process_name:
             return True
     return False
 
-import subprocess
-import platform
-import os
 
 def start_liwc_license_server():
     """
     Launches the LIWC license server on Windows or macOS.
     """
-    
     system = platform.system()
     
     if system == "Windows":
         license_server_path = r"C:\Program Files\LIWC-22\LIWC-22-license-server\LIWC-22-license-server.exe"
     elif system == "Darwin":  # macOS
-        # Adjust path depending on where LIWC is installed on Mac
         license_server_path = "/Applications/LIWC-22-license-server/LIWC-22-license-server.app/Contents/MacOS/LIWC-22-license-server"
     else:
         print(f"Unsupported operating system: {system}")
@@ -34,7 +42,7 @@ def start_liwc_license_server():
         return
 
     if not os.path.exists(license_server_path):
-        print(f"License server not found at {license_server_path}. Double-check the installation path.")
+        print(f"License server not found at {license_server_path}. Double-check installation path.")
         return
 
     try:
@@ -43,20 +51,43 @@ def start_liwc_license_server():
     except Exception as e:
         print(f"Failed to launch license server: {e}")
 
+
+def get_liwc_cli_command(input_path, column_index, output_path, custom_dictionary=None):
+    """
+    Returns the correct LIWC CLI command for Windows or macOS.
+    """
+    system = platform.system()
+    
+    if system == "Windows":
+        cli_executable = "LIWC-22-cli.exe"
+    elif system == "Darwin":
+        cli_executable = "/Applications/LIWC-22-license-server/LIWC-22-cli"  # adjust macOS path
+    else:
+        raise RuntimeError(f"Unsupported OS: {system}")
+
+    cmd = [
+        cli_executable,
+        "--mode", "wc",
+        "--input", input_path,
+        "--column-indices", column_index,
+        "--output", output_path
+    ]
+    if custom_dictionary:
+        cmd += ["--dictionary", custom_dictionary]
+    return cmd
+
+
 def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: bool = False,
                   concise: bool = False, custom_dictionary: str = None):
     """
-    Run LIWC twice — default + optional custom dictionary — and merge results into the original DataFrame.
-    Outputs are created next to the input file unless a custom path is provided.
+    Run LIWC twice — default + optional custom dictionary — and merge results.
     """
     print("Running LIWC analysis...")
     start_liwc_license_server()
 
-    # Keep file path as given, compute input directory
     input_path = file
     input_dir = os.path.dirname(input_path) or "."
     
-    # Output file names
     output_file_default = "liwc_captions.csv" if dependent else "total_linguistic_analysis.csv"
     output_file_custom = "liwc_captions_custom.csv" if dependent else "total_linguistic_analysis_custom.csv"
     merged_output_file = "liwc_combined.csv"
@@ -65,24 +96,16 @@ def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: b
     output_path_custom = os.path.join(input_dir, output_file_custom)
     merged_output_path = os.path.join(input_dir, merged_output_file)
 
-    # Convert column name to index (1-based for LIWC CLI)
     df = pd.read_csv(input_path)
     if column not in df.columns:
         raise ValueError(f"Column '{column}' not found in file.")
-    col_index = df.columns.get_loc(column)
-    column_index = str(col_index + 1)
+    col_index = str(df.columns.get_loc(column) + 1)  # 1-based for LIWC CLI
 
     original_df = df.copy()
 
     # --- First Run: Default Dictionary ---
     try:
-        cmd_default = [
-            "LIWC-22-cli.exe",
-            "--mode", "wc",
-            "--input", input_path,
-            "--column-indices", column_index,
-            "--output", output_path_default
-        ]
+        cmd_default = get_liwc_cli_command(input_path, col_index, output_path_default)
         print("\nRunning LIWC with default dictionary...")
         subprocess.run(cmd_default, check=True, cwd=input_dir)
         print("Default LIWC analysis completed successfully.")
@@ -108,14 +131,7 @@ def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: b
             raise FileNotFoundError(f"Custom dictionary file not found: {custom_dictionary}")
 
         try:
-            cmd_custom = [
-                "LIWC-22-cli.exe",
-                "--mode", "wc",
-                "--input", input_path,
-                "--column-indices", column_index,
-                "--dictionary", custom_dictionary,
-                "--output", output_path_custom
-            ]
+            cmd_custom = get_liwc_cli_command(input_path, col_index, output_path_custom, custom_dictionary)
             print("\nRunning LIWC with custom dictionary...")
             subprocess.run(cmd_custom, check=True, cwd=input_dir)
             print("Custom LIWC analysis completed successfully.")
@@ -137,12 +153,5 @@ def classify_liwc(file: str, column: str, dependent: bool = False, merge_back: b
 
         merged_df.to_csv(merged_output_path, index=False)
         print(f"Combined LIWC output written to: {merged_output_path}")
-
         print(list(merged_df.columns))
-
-# Example usage
-if __name__ == "__main__":
-    file = "text_data_TEST.csv"  # relative path or full path
-    column = "caption"
-    custom_dict_path = r"tom_text_toolbox\dictionaries\regulatory-mode-dictionary.dicx"
-    classify_liwc(file, column, dependent=True, merge_back=True, concise=True, custom_dictionary=custom_dict_path)
+        return merged_df
