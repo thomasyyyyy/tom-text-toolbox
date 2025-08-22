@@ -5,7 +5,7 @@ __email__ = "thomasyoung0416@gmail.com"
 __version__ = "0.0.1"
 
 # Core pipeline functions
-from main import read_file, process_captions, analyse_features
+from .main import read_file, process_captions, analyse_features
 
 # Expose linguistic feature scorers directly
 from .linguistic_features.abstract_concrete_score import classify_abstract_concrete
