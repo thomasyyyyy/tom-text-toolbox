@@ -45,7 +45,8 @@ logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-def analyse_features(file: str, column: str = "caption", method: str = "complete", liwc: bool = False):
+def analyse_features(file: str, column: str = "caption", method: str = "complete", liwc: bool = False, 
+                     custom_dictionary: str = None):
     logging.info("Running Main Function")
 
     # Read the input file
@@ -104,7 +105,8 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
 
         if liwc:
             logging.info("Starting to analyse liwc features...")
-            classify_liwc(file = "processed_captions.csv", column = "caption", dependent = True, merge_back= True, concise = True)
+            classify_liwc(file = "processed_captions.csv", column = "caption", dependent = True, merge_back= True, concise = True,
+                          custom_dictionary= None)
             logging.info("All Done!")
 
         return df
