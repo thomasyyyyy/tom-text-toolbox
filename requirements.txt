@@ -6,7 +6,7 @@ tqdm
 python-Levenshtein
 psutil
 pyenchant
-emosent
+emosent-py
 transformers
 huggingface-hub
 torch
