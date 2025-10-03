@@ -90,6 +90,8 @@ class SpacyAnalyzer:
         return df
 
 if __name__ == "__main__":
+    import multiprocessing
+    multiprocessing.freeze_support()
     captions = pd.Series([
         "The customer loves the new Apple iPhone!",
         "Nike releases its latest sports shoes for athletes.",
