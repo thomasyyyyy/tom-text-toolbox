@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 import json
+import os
 
 from emosent import get_emoji_sentiment_rank_multiple
 from collections import Counter
@@ -23,11 +24,19 @@ class TermCounter:
         self.patterns = {name: self.build_pattern(terms) for name, terms in term_dict.items()}
 
     @classmethod
-    def from_json(cls, json_path: str):
+    def from_json(cls, json_path: str = "term_dict.json"):
         """
         Initialize TermCounter directly from a JSON file.
         json_path: Path to the JSON file containing {category_name: [list_of_terms]}.
+                   If a relative path is given, it will be resolved relative to the
+                   'linguistic_dictionaries' folder inside the package.
         """
+        # If only a filename or relative path is passed, resolve relative to package
+        if not os.path.isabs(json_path):
+            base_dir = os.path.dirname(__file__)  # current file: dictionary_scores.py
+            package_root = os.path.abspath(os.path.join(base_dir, ".."))  # tom_text_toolbox/
+            json_path = os.path.join(package_root, "linguistic_dictionaries", json_path)
+
         with open(json_path, "r", encoding="utf-8") as f:
             term_dict = json.load(f)
 

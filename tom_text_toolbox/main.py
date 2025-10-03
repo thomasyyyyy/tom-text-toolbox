@@ -64,7 +64,7 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
         logging.info("Running Complete Analysis...")
 
         logging.info("Running TermCounter...")
-        tc = TermCounter.from_json("./linguistic_dictionaries/term_dict.json")
+        tc = TermCounter.from_json()
         term_counts_df = tc.count_all(df["caption"])
         df = pd.concat([df, term_counts_df], axis=1)
 
