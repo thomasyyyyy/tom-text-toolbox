@@ -26,14 +26,13 @@ class TermCounter:
     @classmethod
     def from_json(cls, json_path: str = "term_dict.json"):
         """
-        Initialize TermCounter directly from a JSON file.
-        json_path: Path to the JSON file containing {category_name: [list_of_terms]}.
-                   If a relative path is given, it will be resolved relative to the
-                   'linguistic_dictionaries' folder inside the package.
+        Load TermCounter from a JSON file.
+        If a relative path is passed, it will look inside the
+        package's 'linguistic_dictionaries' folder.
         """
-        # If only a filename or relative path is passed, resolve relative to package
+        # If path is relative, resolve it relative to module
         if not os.path.isabs(json_path):
-            base_dir = os.path.dirname(__file__)  # current file: dictionary_scores.py
+            base_dir = os.path.dirname(__file__)  # dictionary_scores.py location
             package_root = os.path.abspath(os.path.join(base_dir, ".."))  # tom_text_toolbox/
             json_path = os.path.join(package_root, "linguistic_dictionaries", json_path)
 
