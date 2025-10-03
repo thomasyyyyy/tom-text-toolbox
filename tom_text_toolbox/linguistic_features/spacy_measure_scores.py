@@ -2,13 +2,16 @@ import spacy
 from spacy.symbols import NOUN, VERB, ADJ, ADV
 import pandas as pd
 import json
+import os
 
 class SpacyAnalyzer:
     def __init__(self):
         self.nlp = spacy.load("en_core_web_lg")
 
         # Load cb_ratio.json from dictionaries folder
-        cb_path = "tom_text_toolbox/dictionaries/cb_ratio.json"
+        base_dir = os.path.dirname(__file__)  # directory of spacy_measure_scores.py
+        cb_path = os.path.join(base_dir, "..", "linguistic_dictionaries", "cb_ratio.json")
+        cb_path = os.path.abspath(cb_path)
         with open(cb_path, "r", encoding="utf-8") as f:
             self.term_dict = json.load(f)
         self.term_dict = {k: set(v) for k, v in self.term_dict.items()}

@@ -64,7 +64,7 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
         logging.info("Running Complete Analysis...")
 
         logging.info("Running TermCounter...")
-        tc = TermCounter.from_json("tom_text_toolbox/dictionaries/term_dict.json")
+        tc = TermCounter.from_json("linguistic_dictionaries/term_dict.json")
         term_counts_df = tc.count_all(df["caption"])
         df = pd.concat([df, term_counts_df], axis=1)
 
@@ -113,6 +113,6 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
 
 
 if __name__ == "__main__":
-    file = "tom_text_toolbox/text_data_TEST.csv"
+    file = "text_data_TEST.csv"
     result_df = analyse_features(file, liwc = True)
 
