@@ -24,7 +24,7 @@ class TermCounter:
         self.patterns = {name: self.build_pattern(terms) for name, terms in term_dict.items()}
 
     @classmethod
-    def from_json(cls, json_path: str = "term_dict.json"):
+    def from_json(cls, json_path: str = "linguistic_dictionaries/term_dict.json"):
         """
         Load TermCounter from a JSON file.
         If a relative path is passed, it will look inside the
