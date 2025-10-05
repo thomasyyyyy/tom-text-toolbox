@@ -113,8 +113,6 @@ def analyse_features(file: str, column: str = "caption", method: str = "complete
 
 
 if __name__ == "__main__":
-    import multiprocessing
-    multiprocessing.freeze_support()
     file = "text_data_TEST.csv"
     result_df = analyse_features(file, liwc = True)
 

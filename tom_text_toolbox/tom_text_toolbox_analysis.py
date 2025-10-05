@@ -1,8 +1,8 @@
 """Main module."""
 
-from tom_text_toolbox import analyse_features
+from main import analyse_features
 
 file = "text_data_TEST.csv"
 
-def main():
+if __name__ == "__main__":
     analyse_features(file = file, liwc = True)
