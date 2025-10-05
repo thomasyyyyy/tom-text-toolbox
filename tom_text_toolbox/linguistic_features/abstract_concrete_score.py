@@ -6,7 +6,7 @@ from nltk.corpus import stopwords as nltk_stopwords
 # -----------------------------
 # Load Brysbaert dictionary
 # -----------------------------
-def load_brysbaert_dictionary(dict_path="tom_text_toolbox/dictionaries/ac_brysbaert_dict.csv"):
+def load_brysbaert_dictionary(dict_path="tom_text_toolbox/linguistic_dictionaries/ac_brysbaert_dict.csv"):
     brys_df = pd.read_csv(dict_path, usecols=["Word", "Conc.M"])
     return dict(zip(brys_df["Word"].str.lower().astype(str), brys_df["Conc.M"]))
 

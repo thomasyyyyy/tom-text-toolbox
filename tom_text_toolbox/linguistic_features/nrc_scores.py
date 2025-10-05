@@ -31,8 +31,8 @@ def classify_nrc_dict(captions: list[str] | pd.Series) -> pd.DataFrame:
     pd.DataFrame
         A pandas DataFrame with average joy and anger scores for each caption.
     """
-    joy_path = os.path.join("tom_text_toolbox/dictionaries/joy-NRC-EmoIntv1-withZeroIntensityEntries.txt")
-    anger_path = os.path.join("tom_text_toolbox/dictionaries/anger-NRC-EmoIntv1-withZeroIntensityEntries.txt")
+    joy_path = os.path.join("tom_text_toolbox/linguistic_dictionaries/joy-NRC-EmoIntv1-withZeroIntensityEntries.txt")
+    anger_path = os.path.join("tom_text_toolbox/linguistic_dictionaries/anger-NRC-EmoIntv1-withZeroIntensityEntries.txt")
 
     joy = pd.read_csv(joy_path, sep="\t")
     anger = pd.read_csv(anger_path, sep="\t")

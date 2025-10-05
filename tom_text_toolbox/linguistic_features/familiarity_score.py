@@ -9,7 +9,7 @@ from tqdm import tqdm
 # -----------------------------
 # Load familiarity dictionary
 # -----------------------------
-def load_familiarity_dict(dict_path: str = "tom_text_toolbox/dictionaries/fam_peatzold_dict.csv") -> dict:
+def load_familiarity_dict(dict_path: str = "tom_text_toolbox/linguistic_dictionaries/fam_peatzold_dict.csv") -> dict:
     df = pd.read_csv(dict_path)
     df = df[df["Word"].apply(lambda x: isinstance(x, str))]
     return dict(zip(df["Word"].str.lower(), df["Familiarity"]))
