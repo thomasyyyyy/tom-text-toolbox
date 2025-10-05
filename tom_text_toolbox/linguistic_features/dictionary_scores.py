@@ -30,11 +30,6 @@ class TermCounter:
         If a relative path is passed, it will look inside the
         package's 'linguistic_dictionaries' folder.
         """
-        # If path is relative, resolve it relative to module
-        if not os.path.isabs(json_path):
-            base_dir = os.path.dirname(__file__)  # dictionary_scores.py location
-            package_root = os.path.abspath(os.path.join(base_dir, ".."))  # tom_text_toolbox/
-            json_path = os.path.join(package_root, "linguistic_dictionaries", json_path)
 
         with open(json_path, "r", encoding="utf-8") as f:
             term_dict = json.load(f)
