@@ -31,6 +31,15 @@ class TermCounter:
         package's 'linguistic_dictionaries' folder.
         """
 
+        # Determine the correct absolute path
+        if not os.path.isabs(json_path):
+            # Look for the JSON inside the package’s folder
+            base_dir = os.path.join(os.path.dirname(__file__), "..")
+            json_path = os.path.abspath(os.path.join(base_dir, json_path))
+
+        if not os.path.exists(json_path):
+            raise FileNotFoundError(f"Cannot find term dictionary file at: {json_path}")
+
         with open(json_path, "r", encoding="utf-8") as f:
             term_dict = json.load(f)
 
